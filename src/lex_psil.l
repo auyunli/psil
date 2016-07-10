@@ -3,8 +3,7 @@
   void yyerror(char *);
   #include "yac_psil.tab.h"
   #include <string.h>
-  //#include <iostream>
-  //using namespace std;
+  #include <iostream>
 %}
 
 %%
@@ -16,8 +15,8 @@
                       yylval.valdouble = atof(yytext);
                       return VALUE_DOUBLE;
                   }
-"<-"              {
-                      return ASSIGNMENT;
+"->"              {
+                      return BIND;
                   }
 [a-z]+[0-9]*      {
                       yylval.str = strdup(yytext);
