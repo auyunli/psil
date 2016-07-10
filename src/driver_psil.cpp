@@ -20,11 +20,9 @@ int main(int argc, char** argv){
 	// set flex to read from it instead of defaulting to STDIN:
 	yyin = myfile;
 
-	// parse through the input until there is no more:
-	/* do { */
+	//call parser
 	yyparse();
     }
-    /* } while (!feof(yyin)); */
 
     return 0;
 }

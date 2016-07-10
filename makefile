@@ -8,9 +8,9 @@ $(shell mkdir -p $(dir_build))
 .PHONY: psil
 
 psil:
-	bison -d $(dir_src)/testyac.y -o $(dir_src)/testyac.tab.c
-	flex -o $(dir_src)/testlex.yy.c $(dir_src)/testlex.l
-	g++ $(dir_src)/testyac.tab.c $(dir_src)/testlex.yy.c $(dir_src)/testmain.cpp -ll -o $(dir_build)/psil
+	bison -d $(dir_src)/yac_psil.y -o $(dir_src)/yac_psil.tab.c
+	flex -o $(dir_src)/lex_psil.yy.c $(dir_src)/lex_psil.l
+	g++ $(dir_src)/yac_psil.tab.c $(dir_src)/lex_psil.yy.c $(dir_src)/driver_psil.cpp -ll -o $(dir_build)/psil
 
 clean :
 	rm -r $(dir_build)
