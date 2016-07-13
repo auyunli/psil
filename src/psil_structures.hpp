@@ -4,6 +4,7 @@
 #include <map>
 #include <cassert>
 #include <iostream>
+#include <vector>
 
 #include "psil_namespace.hpp"
 
@@ -98,6 +99,59 @@ public:
 	}
 	return true;
     }
+};
+
+class psil_ast_words : public psil_ast {
+public:
+    psil_ast_words() : psil_ast( psil_type::DEFERRED, nullptr, nullptr ){}
+    bool eval_current(){
+	std::cout << "words: ";
+	for( auto & i : _words ){
+	    std::cout << i << " ";
+	}
+	std::cout << std::endl;
+	return true;
+    }
+    void append( char const * type ){
+	_words.push_back( type );
+    }
+    std::vector<std::string> _words;
+};
+
+class psil_ast_prototype : public psil_ast {
+public:
+    psil_ast_prototype( psil_ast * words ) : psil_ast( psil_type::DEFERRED, nullptr, nullptr ), _words(words) {}
+    bool eval_current(){
+	_words->eval_current();
+	return true;
+    }
+    psil_ast * _words;
+};
+
+class psil_ast_parengroup : public psil_ast {
+public:
+    psil_ast_parengroup( psil_ast * words ) : psil_ast( psil_type::DEFERRED, nullptr, nullptr ), _words(words) {}
+    bool eval_current(){
+	_words->eval_current();
+	return true;
+    }
+    psil_ast * _words;
+};
+
+class psil_ast_definition : public psil_ast {
+public:
+    psil_ast_definition( psil_ast * args, psil_ast * body ) : psil_ast( psil_type::DEFERRED, nullptr, nullptr ), _args(args), _body(body) {}
+    bool eval_current(){
+	std::cout << "arguments: ";
+	_args->eval_current();
+	std::cout << std::endl;
+	std::cout << "body: ";
+	_body->eval_current();
+	std::cout << std::endl;
+	return true;
+    }
+    psil_ast * _args;
+    psil_ast * _body;
 };
 
 #endif
