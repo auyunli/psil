@@ -8,21 +8,21 @@
 
 %%
 
-"{"               {   return BRACE_START; }
-"}"               {   return BRACE_END; }
-"("               {   return PAREN_START; }
-")"               {   return PAREN_END; }
-"<"               {   return ANGLE_START; }
-">"               {   return ANGLE_END; }
+"{"               {   return BRACE_LEFT; }
+"}"               {   return BRACE_RIGHT; }
+"("               {   return PAREN_LEFT; }
+")"               {   return PAREN_RIGHT; }
+"["               {   return BRACKET_LEFT; }
+"]"               {   return BRACKET_RIGHT; }
+"<"               {   return ANGLE_LEFT; }
+">"               {   return ANGLE_RIGHT; }
 "+"               {   return OP_PLUS; }
-"->"              {   return ARROW; }
+"->"              {   return ARROW_RIGHT; }
+"<-"              {   return ARROW_LEFT; }
 ","               {   return COMMA; }
 [+-]?([0-9]*\.?[0-9]+|[0-9]+\.)  {
                       yylval.valdouble = atof(yytext);
                       return VALUE_DOUBLE;
-                  }
-"="               {
-                      return BIND;
                   }
 [_a-zA-Z]+[0-9]*  {
                       yylval.str = strdup(yytext);

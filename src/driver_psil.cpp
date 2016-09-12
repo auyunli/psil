@@ -31,8 +31,8 @@ int main(int argc, char** argv){
 
 	if( nullptr != root_ast ){
 	    root_ast->eval();
-	    if( root_ast->_ret_type == psil_type::NUMBER ){
-		cout << "eval(root) = " << root_ast->_ret_val.number << endl;
+	    if( root_ast->_type == psil_type::NUMBER ){
+		cout << "eval(root) = " << root_ast->_val.number << endl;
 	    }
 	}
     }
