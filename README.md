@@ -4,5 +4,10 @@ psil is under development and will be a simple experimental language aiming to b
 
 Prototype is currently constructed with Flex and Bison and is executed in C++ runtime. 
 
-Dependencies: Flex, Bison
+## Dependencies:
+Flex, Bison  
 
+## Todo:
+language specification  
+language implementation  
+runtime implementation  
