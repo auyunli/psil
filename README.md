@@ -1,13 +1,11 @@
 # psil
 
-psil is under development and will be a simple experimental language aiming to borrow syntactic-ness of functional-like languages such as LISP, Erlang, and others. A major goal of this experiment will be implementation and optimization of garbage collector algorithms.
-
-Prototype is currently constructed with Flex and Bison and is executed in C++ runtime. 
+psil is under development and will be a experimental language aiming to borrow functional language constructs from ML family, while compiling to an underlying runtime virtual machine.
 
 ## Dependencies:
 Flex, Bison  
 
 ## Todo:
-language specification  
+language grammar specification  
 language implementation  
-runtime implementation  
+runtime implementation (task scheduling, garbage collection)
