@@ -25,9 +25,11 @@
     double valdouble;
     char * str;
     psil_ast * ast;
+    int token;
 }
 
 %token<valdouble> VALUE_DOUBLE
+%token KEYWORD_VAL
 %token<str> WORD
 %token<str> OP_PLUS
 %token DELIMITER
@@ -42,10 +44,15 @@
 %token ARROW_LEFT
 %token ARROW_RIGHT
 %token COMMA
+%token KEYWORD_TRUE
+%token KEYWORD_FALSE
+%token KEYWORD_FUNCTION
 
 %right ARROW_LEFT
 %left OP_PLUS
 VALUE_DOUBLE
+KEYWORD_VAL
+WORD
 
 %type<ast> expr
 %type<ast> root
@@ -69,14 +76,19 @@ VALUE_DOUBLE
 		YYACCEPT;
             }
           ;
-
-     expr   : data ARROW_LEFT list {
-          	  psil_ast_identifier * identifier = new psil_ast_identifier( ( psil_ast_data * ) $1 );		 
-		  psil_ast_bind * bind = new psil_ast_bind( identifier, $3 );
-		  $$ = bind;
+     expr   : KEYWORD_VAL datum ARROW_LEFT list {
+          	psil_ast_identifier * identifier = new psil_ast_identifier( ( psil_ast_datum * ) $2 );		 
+		psil_ast_bind * bind = new psil_ast_bind( identifier, ( psil_ast * ) $4 );
+		$$ = bind;
               }
             | list {
 		$$ = $1;
+              }
+            | KEYWORD_VAL datum ARROW_LEFT PAREN_LEFT datum PAREN_RIGHT ARROW_RIGHT expr {
+		psil_ast_identifier * identifier = new psil_ast_identifier( ( psil_ast_datum * ) $2 );
+		psil_ast_fun * func = new psil_ast_fun( ( psil_ast * )$5, ( psil_ast * )$8, nullptr );
+		psil_ast_bind * bind = new psil_ast_bind( identifier, func );
+		$$ = bind;
               }
             ;
      list   : BRACKET_LEFT datum BRACKET_RIGHT {
@@ -85,7 +97,7 @@ VALUE_DOUBLE
               }
             ;
      datum  : data {
-	 psil_ast_datum * datum = new psil_ast_datum( ( psil_ast_data * )$1 );
+    	         psil_ast_datum * datum = new psil_ast_datum( ( psil_ast_data * )$1 );
 		 $$ = datum;
               }
             | datum COMMA data {

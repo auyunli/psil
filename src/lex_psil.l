@@ -8,6 +8,10 @@
 
 %%
 
+"val"             {   return KEYWORD_VAL; }
+"true"            {   return KEYWORD_TRUE; }
+"false"           {   return KEYWORD_FALSE; }
+"fun"             {   return KEYWORD_FUNCTION; }
 "{"               {   return BRACE_LEFT; }
 "}"               {   return BRACE_RIGHT; }
 "("               {   return PAREN_LEFT; }
@@ -29,7 +33,7 @@
                       return WORD;
                   }
 [ \t\n]           { }
-";;"              { return DELIMITER; }
+";"               { return DELIMITER; }
 .                 { return EOF; };
 
 %%

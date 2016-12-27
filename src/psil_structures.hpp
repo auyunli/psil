@@ -22,6 +22,7 @@ enum class psil_type {
     DATUM,
     NOT_APPLICABLE,
     DEFERRED,
+    FUNCTION,
 };
 
 union psil_value {
@@ -139,16 +140,31 @@ public:
 
 class psil_ast_identifier : public psil_ast {
 public:
-    psil_ast_identifier( psil_ast_data * data ) : psil_ast( psil_type::IDENTIFIER, nullptr, nullptr ), _identifier( data ) {}
+    psil_ast_identifier( psil_ast_datum * data ) : psil_ast( psil_type::IDENTIFIER, nullptr, nullptr ), _identifier( data ) {}
     bool eval_current(){
 	std::cout << "identifier: { ";
 	_identifier->eval_current();
 	std::cout << " }" << std::endl;
 	return true;
     }
-    psil_ast_data * _identifier;
+    psil_ast_datum * _identifier;
 };
 
+class psil_ast_fun : public psil_ast {
+public:
+    psil_ast_fun( psil_ast * args, psil_ast * body, psil_ast * result ) : psil_ast( psil_type::FUNCTION, nullptr, nullptr ), _args(args), _body(body), _result(result) {}
+    bool eval_current(){
+	std::cout << "function{ arguments: { ";
+	_args->eval_current();
+	std::cout << "}, body: { ";
+	_body->eval_current();
+	std::cout << " } }" << std::endl;
+	return true;
+    }
+    psil_ast * _args;
+    psil_ast * _body;
+    psil_ast * _result;
+};
 
 //disabled---
 // class psil_ast_prototype : public psil_ast {

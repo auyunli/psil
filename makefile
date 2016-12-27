@@ -5,7 +5,9 @@ dir_test = ./test
 
 $(shell mkdir -p $(dir_build))
 
-.PHONY: psil
+.PHONY: all
+
+all: psil
 
 psil:
 	bison -d $(dir_src)/yac_psil.y -o $(dir_src)/yac_psil.tab.c
